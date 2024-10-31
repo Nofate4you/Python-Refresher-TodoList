@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!-- Main wrapper to center content -->
+    <div class="main-container">
+        <header>
+            <h1>Kevin's Amazing Todo List</h1>
+            <p>Keep track of your tasks easily and efficiently</p>
+        </header>
+
+        <div class="form-container">
+            <form action="/add/" method="POST">
+                {% csrf_token %}
+                <input type="text" name="todo" placeholder="New task" required />
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <ul>
+            {% for todo in todos %}
+            <li>
+                {{ forloop.counter0 }} - {{ todo }}
+                <a href="/delete/{{ forloop.counter0 }}/">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
